@@ -18,28 +18,16 @@ class FixedArray {
   // 배열 맨 뒤에 요소 추가
   // 배열의 길이가 #arrayLength를 초과할 경우 요소를 추가되면 안됨.
   push(element) {
-    for (let i = 0; i < this.fixedLength; i++) {
-      if (
-        this.#array[i] === undefined &&
-        this.#arrayLength + 1 <= this.fixedLength
-      ) {
-        this.#array[i] = element;
-        this.#arrayLength++;
-        break;
-      }
-    }
+    this.#array[this.#arrayLength] = element;
+    this.#arrayLength++;
   }
 
   // 배열의 맨 마지막 요소를 제거하고 그 요소를 반환
   pop() {
-    for (let i = this.fixedLength - 1; i >= 0; i--) {
-      if (this.#array[i] !== undefined) {
-        const arrElement = this.#array[i];
-        this.#arrayLength--;
-        this.#array[i] = undefined;
-        return arrElement;
-      }
-    }
+    this.#arrayLength -= !this.#arrayLength ? 0 : 1;
+    const arrElement = this.#array[this.#arrayLength];
+    this.#array[this.#arrayLength] = undefined;
+    return arrElement;
   }
 
   // 현재 배열의 사용되고 있는 크기를 반환
@@ -58,14 +46,17 @@ class FixedArray {
   }
 }
 
-const arr1 = new FixedArray(5);
-console.log(arr1.getLength());
-arr1.push(10);
-arr1.push(20);
-arr1.push(30);
-arr1.push(40);
-arr1.push(50);
-console.log(arr1.stringify());
-console.log(arr1.getLength());
-console.log(arr1.pop());
-console.log(arr1.getLength());
+// const arr1 = new FixedArray(5);
+// console.log(arr1.getLength());
+// arr1.push(10);
+// arr1.push(20);
+// arr1.push(30);
+// arr1.push(40);
+// arr1.push(50);
+// console.log(arr1.stringify());
+// console.log(arr1.getLength());
+// console.log(arr1.pop());
+// console.log(arr1.getLength());
+
+const array = [];
+console.log(array.pop());
