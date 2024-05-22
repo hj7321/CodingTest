@@ -46,17 +46,15 @@ class FixedArray {
   }
 }
 
-// const arr1 = new FixedArray(5);
-// console.log(arr1.getLength());
-// arr1.push(10);
-// arr1.push(20);
-// arr1.push(30);
-// arr1.push(40);
-// arr1.push(50);
-// console.log(arr1.stringify());
-// console.log(arr1.getLength());
-// console.log(arr1.pop());
-// console.log(arr1.getLength());
+const arr1 = new FixedArray(5);
+console.log(arr1.getLength());
+arr1.push(10);
+console.log(arr1.stringify());
+console.log(arr1.getLength());
+console.log(arr1.pop());
+console.log(arr1.pop());
+console.log(arr1.pop());
+console.log(arr1.getLength());
 
-const array = [];
-console.log(array.pop());
+// const array = [];
+// console.log(array.pop());
