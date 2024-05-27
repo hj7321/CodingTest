@@ -1,4 +1,4 @@
-class FixedArray {
+export class FixedArray {
   #arrayLength;
   #array;
   // 필요한변수 추가 가능
@@ -10,6 +10,9 @@ class FixedArray {
     this.fixedLength = fixedLength;
     this.#arrayLength = 0;
     this.#array = [];
+    for (let i = 0; i < this.fixedLength; i++) {
+      this.#array[i] = undefined;
+    }
   }
 
   //////////////////////////////
