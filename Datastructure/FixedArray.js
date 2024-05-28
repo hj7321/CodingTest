@@ -40,24 +40,106 @@ export class FixedArray {
 
   // 현재 배열의 상태를 string으로 반환
   stringify() {
-    let str = "[ ";
-    for (let i = 0; i < this.fixedLength; i++) {
+    let str = "[";
+    for (let i = 0; i < this.#arrayLength; i++) {
       str += `${this.#array[i]}`;
-      str += i !== this.fixedLength - 1 ? ", " : " ]";
+      str += i !== this.#arrayLength - 1 ? "," : "";
     }
+    str += "]";
     return str;
+  }
+
+  //////////////////////////////
+  //////      LEVEL 2      /////
+  //////////////////////////////
+  // 배열에서 특정 요소의 첫 번째 인덱스를 반환합니다. 요소가 없으면 -1을 반환합니다.
+  indexOf(searchElement) {
+    for (let i = 0; i < this.#arrayLength; i++) {
+      if (searchElement === this.#array[i]) return i;
+    }
+    return -1;
+  }
+
+  // 배열의 각 요소에 대해 predicate 결과가 true인 요소 중 제일 첫번째 요소 1개만 반환
+  // true 가 없으면 null 반환
+  find(predicate) {
+    for (let i = 0; i < this.#arrayLength; i++) {
+      if (predicate(this.#array[i])) return this.#array[i];
+    }
+    return null;
+  }
+
+  // 배열의 각 요소에 대해 predicate 결과가 true인 요소 중 제일 첫번째 요소의 index반환
+  // true 가 없으면 -1 반환
+  findIndex(predicate) {
+    for (let i = 0; i < this.#arrayLength; i++) {
+      if (predicate(this.#array[i])) return i;
+    }
+    return -1;
+  }
+
+  // 배열에 특정 요소가 포함되어 있는지 여부를 확인합니다. (true or false)
+  includes(searchElement) {
+    for (let i = 0; i < this.#arrayLength; i++) {
+      if (searchElement === this.#array[i]) return true;
+    }
+    return false;
+  }
+
+  //////////////////////////////
+  //////      LEVEL 3      /////
+  //////////////////////////////
+  // 배열의 각 요소에 대해 제공된 함수를 한 번씩 실행합니다.
+  forEach(callback) {
+    for (let i = 0; i < this.#arrayLength; i++) {
+      callback(this.#array[i]);
+    }
+  }
+
+  // 배열의 각 요소에 대해 predicate 결과가 true인 요소를 모아 새로운 배열 반환
+  filter(predicate) {
+    const newArr = new FixedArray(this.#arrayLength);
+    for (let i = 0; i < this.#arrayLength; i++) {
+      if (predicate(this.#array[i])) newArr.push(this.#array[i]);
+    }
+    return newArr;
+  }
+
+  // 배열의 각 요소에 대해 callback 함수를 호출한 결과를 모아 새로운 배열로 반환
+  map(callback) {
+    const newArr = new FixedArray(this.#arrayLength);
+    for (let i = 0; i < this.#arrayLength; i++) {
+      newArr.push(callback(this.#array[i]));
+    }
+    return newArr;
+  }
+
+  // 배열의 각 요소에 대해 제공된 함수를 호출하여 누산기에 값을 축적
+  reduce(callback, initValue) {
+    let acc = initValue ?? this.#array[0];
+    let result = 0;
+    for (let i = 0; i < this.#arrayLength; i++) {
+      let funcRes = callback(acc, this.#array[i]);
+      acc = funcRes ?? acc;
+    }
+    return result;
   }
 }
 
-const arr1 = new FixedArray(5);
-console.log(arr1.getLength());
-arr1.push(10);
-console.log(arr1.stringify());
-console.log(arr1.getLength());
-console.log(arr1.pop());
-console.log(arr1.pop());
-console.log(arr1.pop());
-console.log(arr1.getLength());
+const array = new FixedArray(5);
+array.push(1);
+array.push(2);
+array.push(3);
+array.push(4);
+array.push(5);
+const result = array.reduce((acc, cur) => {
+  acc = acc + cur;
+  return acc;
+}, 0);
+console.log(result);
 
-// const array = [];
-// console.log(array.pop());
+// 내장 함수
+// const res = [1, 2, 3, 4, 5].reduce((acc, cur) => {
+//   return (acc += cur);
+// });
+// console.log(res);

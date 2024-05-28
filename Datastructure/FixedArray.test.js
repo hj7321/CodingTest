@@ -19,4 +19,12 @@ describe("FixedArray", () => {
   it("getLength", () => {
     expect(numberArray.getLength()).to.equal(testNumberArray.length);
   });
+
+  it("pop", () => {
+    expect(numberArray.pop()).to.equal(testNumberArray.pop());
+  });
+
+  it("stringify", () => {
+    expect(numberArray.stringify()).to.equal(JSON.stringify(testNumberArray));
+  });
 });
