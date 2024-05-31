@@ -27,4 +27,34 @@ describe("FixedArray", () => {
   it("stringify", () => {
     expect(numberArray.stringify()).to.equal(JSON.stringify(testNumberArray));
   });
+
+  it("reduce1", () => {
+    expect(
+      numberArray.reduce((_, cur) => {
+        return cur;
+      })
+    ).to.equal(
+      testNumberArray.reduce((_, cur) => {
+        return cur;
+      })
+    );
+  });
+
+  it("reduce2", () => {
+    expect(
+      JSON.stringify(
+        numberArray.reduce(function (acc, cur, idx) {
+          acc[idx] = cur;
+          return acc;
+        }, {})
+      )
+    ).to.equal(
+      JSON.stringify(
+        testNumberArray.reduce(function (acc, cur, idx) {
+          acc[idx] = cur;
+          return acc;
+        }, {})
+      )
+    );
+  });
 });
